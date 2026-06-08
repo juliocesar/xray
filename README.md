@@ -109,10 +109,15 @@ pnpm lint
 pnpm format
 
 pnpm xray         # run the relay from source (tsx)
+pnpm release      # build + publish @julio_ody/xray to npm (clean tree on main)
 ```
 
 Requires Node >= 24 and pnpm 10. Conventions (ESLint flat config, Prettier,
 TSConfig base) live at the repo root.
+
+`pnpm release` runs `pnpm -r publish`; a `prepublishOnly` build guarantees a fresh
+bundle, and pnpm's git checks require a clean working tree on `main`. npm 2FA (your
+security key) prompts at publish time.
 
 The event v2 wire format — the real cross-language contract — is documented in
 [WIRE_FORMAT.md](WIRE_FORMAT.md).

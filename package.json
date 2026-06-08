@@ -16,7 +16,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
-    "xray": "pnpm --filter xray run dev"
+    "release": "pnpm -r publish",
+    "xray": "pnpm --filter @julio_ody/xray run dev"
   },
   "engines": {
     "node": ">=24"
