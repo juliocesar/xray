@@ -1,0 +1,42 @@
+{
+  "name": "@xray/client",
+  "version": "0.1.0",
+  "description": "Tiny typed xray client for browser and Node — fire labeled debug events at a local xray relay.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "debug",
+    "relay",
+    "xray",
+    "observability",
+    "devtools"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.4",
+    "tsup": "^8.5.0",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.7"
+  }
+}

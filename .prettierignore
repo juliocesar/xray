@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.turbo/
+*.tsbuildinfo
+
+# Vendorable helper templates for other languages are not JS/TS and are
+# formatted by hand to read idiomatically in their target language.
+packages/relay/templates/
+
+# Lockfiles
+pnpm-lock.yaml

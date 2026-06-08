@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    // tsup's declaration build injects a deprecated `baseUrl`; silence the
+    // TS 6.0 deprecation error so `.d.ts` emit succeeds.
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["src", "test", "tsup.config.ts"]
+}
