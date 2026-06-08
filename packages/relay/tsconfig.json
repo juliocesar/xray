@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
+    // The client (src/client.ts) runs in browsers too and references DOM
+    // globals (window, navigator, Blob); include the DOM lib for typecheck.
+    "lib": ["ES2022", "DOM"],
     // tsup's declaration build injects a deprecated `baseUrl`; silence the
     // TS 6.0 deprecation error so `.d.ts` emit succeeds.
     "ignoreDeprecations": "6.0"

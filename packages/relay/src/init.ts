@@ -128,7 +128,7 @@ export async function runInit(
 
   // 2. Vendor (or advise on) the helper for the chosen stack.
   if (lang === 'node') {
-    done.push('JS/TS: install the typed client with `npm i -D @xray/client`')
+    done.push('JS/TS: install the typed client with `npm i -D @julio_ody/xray`')
   } else if (lang === 'browser') {
     done.push(`browser: add <script src="${DEFAULT_URL}/xray.js"></script> (dev only)`)
   } else {
@@ -163,7 +163,7 @@ export async function runInit(
   )
 
   const lan = lanAddress()
-  console.log('\nStart the relay with: npx xray')
+  console.log('\nStart the relay with: npx @julio_ody/xray')
   console.log(`Relay URL: ${DEFAULT_URL}${lan ? `  (LAN: http://${lan}:7200)` : ''}`)
   if (!flags.hook) {
     console.log('\nTip: re-run with --hook to auto-inject events into Claude Code each prompt.')

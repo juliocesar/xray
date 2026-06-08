@@ -5,7 +5,7 @@
     <title>xray — browser Tier 0 demo</title>
     <!--
       Zero-install front-end path: the relay serves its own client with its origin
-      baked in. Start the relay (`npx xray`), then open this file in a browser.
+      baked in. Start the relay (`npx @julio_ody/xray`), then open this file in a browser.
       Works from file://, http://localhost, and (loopback is trusted) https too.
     -->
     <script src="http://127.0.0.1:7200/xray.js" data-xray-source="web"></script>
@@ -13,7 +13,7 @@
   <body style="font-family: system-ui; max-width: 40rem; margin: 3rem auto">
     <h1>xray browser demo</h1>
     <p>
-      Start the relay with <code>npx xray</code>, then click. In another terminal run
+      Start the relay with <code>npx @julio_ody/xray</code>, then click. In another terminal run
       <code>xray tail</code> to watch the events arrive.
     </p>
     <button id="create">order.created</button>

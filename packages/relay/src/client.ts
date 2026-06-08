@@ -1,5 +1,5 @@
 /**
- * @xray/client — Tier 1 typed client for the xray relay.
+ * @julio_ody/xray/client — Tier 1 typed client for the xray relay.
  *
  * One helper for browser and Node. Fire a labeled event and forget it: the call
  * never blocks, never throws, and no-ops unless xray is enabled. Browser sends
@@ -147,5 +147,3 @@ export function xray(event: string, data?: unknown): void {
     // Swallow everything: instrumentation must never affect the host program.
   }
 }
-
-export default xray

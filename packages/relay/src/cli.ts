@@ -123,7 +123,7 @@ function dieOnConnError(url: string, err: unknown): never {
   const e = err as { code?: string; cause?: { code?: string } }
   const code = e.code ?? e.cause?.code
   if (code === 'ECONNREFUSED' || code === 'ENOTFOUND') {
-    console.error(red(`No xray relay at ${url}. Start one with: npx xray`))
+    console.error(red(`No xray relay at ${url}. Start one with: npx @julio_ody/xray`))
   } else {
     console.error(red(`xray: ${(err as Error).message}`))
   }

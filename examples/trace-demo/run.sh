@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Emit one action across three sources with a shared trace id. Requires a running
-# relay (npx xray) and node + python3 on PATH.
+# relay (npx @julio_ody/xray) and node + python3 on PATH.
 set -euo pipefail
 
 URL="${XRAY_URL:-http://127.0.0.1:7200}"
@@ -8,7 +8,7 @@ export XRAY_ENABLED=1
 export XRAY_TRACE=demo_trace
 
 if ! curl -s --max-time 1 "$URL/health" >/dev/null; then
-  echo "No relay at $URL — start one with: npx xray" >&2
+  echo "No relay at $URL — start one with: npx @julio_ody/xray" >&2
   exit 1
 fi
 

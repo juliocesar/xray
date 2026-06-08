@@ -17,7 +17,7 @@ agent the workflow, then you say "x-ray this" and it instruments, reproduces, an
 drains on its own (see [Use it with your coding agent](#use-it-with-your-coding-agent)).
 
 ```
-npx xray                      # start the relay on 127.0.0.1:7200
+npx @julio_ody/xray                      # start the relay on 127.0.0.1:7200
 curl -s 127.0.0.1:7200/health # confirm it is up
 xray drain                    # read new events (or `xray tail` for a live stream)
 ```
@@ -39,8 +39,8 @@ window.xray('checkout.submitted', { orderId })
 ```
 
 ```ts
-// api (Node) — npm i -D @xray/client
-import { xray, setTrace } from '@xray/client'
+// api (Node) — npm i -D @julio_ody/xray
+import { xray, setTrace } from '@julio_ody/xray/client'
 setTrace(req.headers['x-trace']) // the same id, forwarded from the browser
 xray('payment.authorized', { orderId, amount })
 ```
@@ -89,23 +89,21 @@ dev-only and no-op unless enabled (`XRAY_ENABLED=1`).
 
 ## This repo
 
-A pnpm + Turbo monorepo with two published packages:
+A pnpm + Turbo workspace with one published package, [`packages/relay`](packages/relay)
+(npm **`@julio_ody/xray`**): the relay + `xray` CLI, bundled to a single
+dependency-free file, plus the typed JS/TS client exposed at the `@julio_ody/xray/client`
+subpath (`import { xray } from '@julio_ody/xray/client'`).
 
-| Package                              | npm            | What it is                                                                                                  |
-| ------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------- |
-| [`packages/relay`](packages/relay)   | `xray`         | The relay + `xray` CLI. Single bundled, dependency-free file. Also serves and vendors the language helpers. |
-| [`packages/client`](packages/client) | `@xray/client` | The typed JS/TS client for browser and Node (Tier 1).                                                       |
-
-Plus [`packages/relay/templates`](packages/relay/templates) — the vendorable,
-dependency-free helper sources for browser, Ruby, Python, Go, Rust, PHP, and shell
-that `xray init` writes into a project and the relay serves at `/xray.<ext>`.
+It also carries [`packages/relay/templates`](packages/relay/templates) — the
+vendorable, dependency-free helper sources for browser, Ruby, Python, Go, Rust, PHP,
+and shell that `xray init` writes into a project and the relay serves at `/xray.<ext>`.
 
 ## Develop
 
 ```
 pnpm install
-pnpm build        # bundle both packages (tsup)
-pnpm test         # vitest, all packages
+pnpm build        # bundle the CLI/relay and the client (tsup)
+pnpm test         # vitest
 pnpm typecheck
 pnpm lint
 pnpm format
@@ -114,7 +112,7 @@ pnpm xray         # run the relay from source (tsx)
 ```
 
 Requires Node >= 24 and pnpm 10. Conventions (ESLint flat config, Prettier,
-TSConfig base) live at the repo root and are shared by both packages.
+TSConfig base) live at the repo root.
 
 The event v2 wire format — the real cross-language contract — is documented in
 [WIRE_FORMAT.md](WIRE_FORMAT.md).

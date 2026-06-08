@@ -3,7 +3,7 @@ import type { Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
-import { configure, enabled, setTrace, xray } from '../src/index'
+import { configure, enabled, setTrace, xray } from '../src/client'
 
 interface Captured {
   contentType?: string
@@ -53,7 +53,7 @@ beforeEach(() => {
   configure({ url: relay.url(), source: 'node-test', enabled: true, trace: undefined })
 })
 
-describe('@xray/client', () => {
+describe('@julio_ody/xray/client', () => {
   it('sends a v2 event with event/source/ts and a text/plain body', async () => {
     const received = relay.next()
     xray('order.created', { orderId: 'abc' })

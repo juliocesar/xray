@@ -8,7 +8,7 @@ draining the relay reconstructs a single action end-to-end.
 
 ```sh
 # 1. Start the relay in one terminal
-npx xray
+npx @julio_ody/xray
 
 # 2. In another terminal, from this directory:
 ./run.sh

@@ -2,7 +2,7 @@
   "name": "xray-monorepo",
   "version": "0.1.0",
   "private": true,
-  "description": "xray: a tiny local debug relay that buffers labeled runtime events from any process so an agent or human can drain them and see a scenario from the inside.",
+  "description": "xray: a tiny local relay that buffers labeled runtime events from any process so an agent or human can drain them and see a scenario from the inside.",
   "packageManager": "pnpm@10.5.2",
   "pnpm": {
     "onlyBuiltDependencies": [

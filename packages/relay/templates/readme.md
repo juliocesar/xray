@@ -24,10 +24,10 @@ timeline across many processes and languages, structured and intentional events
 ## Install and start
 
 ```
-npx xray            # starts the relay on 127.0.0.1:7200
+npx @julio_ody/xray            # starts the relay on 127.0.0.1:7200
 ```
 
-(Or `npm i -g xray` for an `xray` command on your PATH.) Confirm it is up:
+(Or `npm i -g @julio_ody/xray` for an `xray` command on your PATH.) Confirm it is up:
 
 ```
 curl -s 127.0.0.1:7200/health
@@ -36,14 +36,14 @@ curl -s 127.0.0.1:7200/health
 ## Add a helper
 
 Run `xray init` to vendor a helper into your project and write the docs; pass
-`--lang` to choose the language. Helpers are tiny, dependency-free files (or the
-`@xray/client` npm package for JS), so nothing lands in your production dependency
-manifest.
+`--lang` to choose the language. Helpers are tiny, dependency-free files (or, for
+JS/TS, the typed client at `@julio_ody/xray/client` from `npm i -D @julio_ody/xray`),
+so nothing lands in your production dependency manifest.
 
 | Language     | Call |
 |--------------|------|
 | Browser      | `window.xray('order.created', { orderId })` (load `http://127.0.0.1:7200/xray.js`) |
-| Node / TS    | `import { xray } from '@xray/client'` then `xray('order.created', { orderId })` |
+| Node / TS    | `import { xray } from '@julio_ody/xray/client'` then `xray('order.created', { orderId })` |
 | Ruby         | `Xray.emit('order.created', order_id: id)` |
 | Python       | `xray('order.created', {'order_id': id})` |
 | Go           | `xray.Emit("order.created", map[string]any{"orderId": id})` |
@@ -66,7 +66,7 @@ manifest.
 
 ## The workflow
 
-1. Start the relay (`npx xray`).
+1. Start the relay (`npx @julio_ody/xray`).
 2. Add helper calls to the code paths you are investigating.
 3. Reproduce the scenario (run the request, click through the UI, run the job).
 4. Drain: `xray drain`.

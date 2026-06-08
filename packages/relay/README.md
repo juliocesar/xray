@@ -17,10 +17,10 @@ analyze the events.
 ## Install and start
 
 ```
-npx xray            # starts the relay on 127.0.0.1:7200
+npx @julio_ody/xray            # starts the relay on 127.0.0.1:7200
 ```
 
-(Or `npm i -g xray` for an `xray` command on your PATH.) Confirm it is up:
+(Or `npm i -g @julio_ody/xray` for an `xray` command on your PATH.) Confirm it is up:
 
 ```
 curl -s 127.0.0.1:7200/health
@@ -48,17 +48,17 @@ Client commands accept `--url <relay url>` (default `$XRAY_URL` or
 
 Run `xray init` to vendor a helper into your project and write the docs; pass
 `--lang` to choose the language. Helpers are tiny, dependency-free files (or the
-`@xray/client` npm package for JS/TS), so nothing lands in your production
+`@julio_ody/xray/client` npm package for JS/TS), so nothing lands in your production
 dependency manifest.
 
-| Language       | Call                                                                               |
-| -------------- | ---------------------------------------------------------------------------------- |
-| Browser        | `window.xray('order.created', { orderId })` (load `http://127.0.0.1:7200/xray.js`) |
-| Node/TS        | `import { xray } from '@xray/client'` then `xray('order.created', { orderId })`    |
-| Ruby           | `Xray.emit('order.created', order_id: id)`                                         |
-| Python         | `xray('order.created', {'order_id': id})`                                          |
-| Go             | `xray.Emit("order.created", map[string]any{"orderId": id})`                        |
-| Rust/PHP/shell | the vendored `xray` helper, same `(event, data)` shape                             |
+| Language       | Call                                                                                      |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| Browser        | `window.xray('order.created', { orderId })` (load `http://127.0.0.1:7200/xray.js`)        |
+| Node/TS        | `import { xray } from '@julio_ody/xray/client'` then `xray('order.created', { orderId })` |
+| Ruby           | `Xray.emit('order.created', order_id: id)`                                                |
+| Python         | `xray('order.created', {'order_id': id})`                                                 |
+| Go             | `xray.Emit("order.created", map[string]any{"orderId": id})`                               |
+| Rust/PHP/shell | the vendored `xray` helper, same `(event, data)` shape                                    |
 
 ### Conventions
 
@@ -86,12 +86,34 @@ The buffer is a bounded ring (drop-oldest). xray never drops silently: `/health`
 `xray drain` report how many events were evicted, and flag any evicted before you
 read them.
 
+## Typed client (`@julio_ody/xray/client`)
+
+Installing the package gives you a typed JS/TS client for browser and Node at the
+`@julio_ody/xray/client` subpath — no separate install:
+
+```ts
+import { xray, configure, setTrace, enabled } from '@julio_ody/xray/client'
+
+configure({ source: 'api' }) // optional; Node especially
+xray('order.created', { orderId, status })
+```
+
+`xray(event, data?)` is fire-and-forget: it never blocks, never throws, and no-ops
+unless enabled. Browser sends use `navigator.sendBeacon` (a preflight-free
+`text/plain` simple request that survives page unload); Node uses `fetch` with
+`keepalive`. Enablement is safe by construction — explicit (`configure({ enabled })`,
+`window.__XRAY_ENABLED__`, or `XRAY_ENABLED`) wins; otherwise it enables itself only
+when a URL is configured or in dev (a loopback page in the browser,
+`NODE_ENV !== "production"` in Node).
+
 ## Front-end
 
 The browser helper posts directly to the relay (`navigator.sendBeacon`, a
 preflight-free request that survives page unload). It works from plain
 `http://localhost` dev and, because loopback is a trusted origin, from HTTPS
-localhost too, with no proxy. For HTTPS custom domains, run with `--tls`.
+localhost too, with no proxy. For HTTPS custom domains, run with `--tls`. For a
+zero-install path, load `http://127.0.0.1:7200/xray.js` (Tier 0) instead of the
+bundled client.
 
 ## Using with Claude Code
 

@@ -9,10 +9,11 @@ suggest it, but do not start the relay, instrument code, or drain unprompted.
 
 Workflow:
 
-1. Start if needed: `npx xray` (`:7200`). Check: `curl -s 127.0.0.1:7200/health`.
+1. Start if needed: `npx @julio_ody/xray` (`:7200`). Check: `curl -s 127.0.0.1:7200/health`.
 2. Add helper calls to the suspect paths (helper is vendored; else
    `xray init --lang <lang>`):
-   - JS/TS `xray('order.created', { orderId })` · browser `window.xray(...)` via
+   - JS/TS `import { xray } from '@julio_ody/xray/client'` (`npm i -D @julio_ody/xray`)
+     then `xray('order.created', { orderId })` · browser `window.xray(...)` via
      `/xray.js` · Ruby `Xray.emit('order.created', order_id: id)` · Python
      `xray('order.created', {...})` · Go `xray.Emit(...)`.
    - Name events `domain.action`. Set `XRAY_SOURCE` per process (`web`/`api`/`worker`).
