@@ -153,6 +153,15 @@ export async function runInit(
   // Report.
   console.log(`xray init — detected stack: ${lang}\n`)
   for (const line of done) console.log(`  ✓ ${line}`)
+
+  // Agent instruction files (CLAUDE.md / AGENTS.md) and hooks are read at
+  // startup, so an already-open session won't see what init just wrote.
+  console.log(
+    `\n⚠ Restart your coding agent so it loads the updated CLAUDE.md` +
+      (flags.hook ? ' and the new UserPromptSubmit hook' : '') +
+      `.\n  Agent instructions are read at startup (in Claude Code: /clear or start a new session).`,
+  )
+
   const lan = lanAddress()
   console.log('\nStart the relay with: npx xray')
   console.log(`Relay URL: ${DEFAULT_URL}${lan ? `  (LAN: http://${lan}:7200)` : ''}`)

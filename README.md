@@ -66,6 +66,24 @@ Fix it, reproduce again, drain again. When you're done, remove the helper calls
 Reads are non-destructive, so a teammate running `xray tail` in another terminal
 sees the same events without stealing them from your drain.
 
+## Use it with your coding agent
+
+`xray init` wires xray into a repo and, importantly, **teaches your coding agent how
+to use it**. It writes a short xray block into your `CLAUDE.md` / `AGENTS.md` — the
+terminology, the event conventions, and the instrument → reproduce → drain loop —
+then vendors a helper for your stack. With `--hook` it also installs a Claude Code
+`UserPromptSubmit` hook so new events inject into the agent's context automatically.
+
+```sh
+xray init            # detects your stack; --lang <l> to override, --hook for ambient mode
+```
+
+Agent instruction files are read at startup, so **restart your agent (or `/clear`)
+after `init`** to load the new block. After that, say "x-ray this" in a session and
+the agent follows the loop on its own: instrument the suspect paths, ask you to
+reproduce, drain the timeline, iterate, and remove the calls when done. Helpers are
+dev-only and no-op unless enabled (`XRAY_ENABLED=1`).
+
 ## This repo
 
 A pnpm + Turbo monorepo with two published packages:
