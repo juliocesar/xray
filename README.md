@@ -1,17 +1,20 @@
 # xray
 
-A tiny local relay that lets you see what your code is doing from the inside.
+**Give your coding agent x-ray vision into your workflows, code paths, and
+cross-process timing** — the runtime behavior it otherwise has to guess at. Fire
+small labeled events from anywhere in your stack and let the agent drain a clean,
+ordered timeline of what actually happened.
 
 xray is a small HTTP server you run on your machine. From anywhere in your stack
-(back-end, front-end, a worker, a shell script, in any language) you fire small
-labeled events at it with a one-line helper, then "develop the x-ray": drain the
-buffered events and read a clean, ordered timeline of what actually happened.
-Because every process points at the same relay, you watch a single user action
-travel from a browser click, through your API, into a background job, on one
-timeline.
+(back-end, front-end, a worker, a shell script, in any language) you fire those
+events with a one-line helper, then "develop the x-ray": drain the buffered events
+and read what actually happened. Because every process points at the same relay,
+you watch a single user action travel from a browser click, through your API, into
+a background job, on one timeline.
 
-It pairs especially well with coding agents (Claude Code): ask the agent to
-instrument the suspect paths, reproduce, then let it drain and analyze.
+It pairs especially well with coding agents (Claude Code): `xray init` teaches the
+agent the workflow, then you say "x-ray this" and it instruments, reproduces, and
+drains on its own (see [Use it with your coding agent](#use-it-with-your-coding-agent)).
 
 ```
 npx xray                      # start the relay on 127.0.0.1:7200
