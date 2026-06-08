@@ -109,15 +109,25 @@ pnpm lint
 pnpm format
 
 pnpm xray         # run the relay from source (tsx)
-pnpm release      # build + publish @julio_ody/xray to npm (clean tree on main)
+
+pnpm release:patch   # bump 0.1.0 -> 0.1.1, commit, tag vX.Y.Z, push, publish
+pnpm release:minor   # 0.x bump
+pnpm release:major   # x.0 bump
+pnpm release         # re-publish the CURRENT version (e.g. after a failed publish)
 ```
 
 Requires Node >= 24 and pnpm 10. Conventions (ESLint flat config, Prettier,
 TSConfig base) live at the repo root.
 
-`pnpm release` runs `pnpm -r publish`; a `prepublishOnly` build guarantees a fresh
-bundle, and pnpm's git checks require a clean working tree on `main`. npm 2FA (your
-security key) prompts at publish time.
+### Releasing
+
+The published version lives in `packages/relay/package.json`. `pnpm release:<type>`
+runs `npm version <type>` there (bumps the version, commits `release: vX.Y.Z`, and
+creates the `vX.Y.Z` git tag), then `git push --follow-tags`, then `pnpm -r publish`.
+A `prepublishOnly` build guarantees a fresh bundle. `npm version` and pnpm both
+require a clean working tree, and npm 2FA (your security key) prompts at publish
+time. If publish fails after the tag is pushed, re-run `pnpm release` to publish the
+already-bumped version.
 
 The event v2 wire format — the real cross-language contract — is documented in
 [WIRE_FORMAT.md](WIRE_FORMAT.md).

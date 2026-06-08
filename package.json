@@ -17,6 +17,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
     "release": "pnpm -r publish",
+    "release:patch": "pnpm --filter @julio_ody/xray exec npm version patch -m \"release: %s\" && git push --follow-tags && pnpm -r publish",
+    "release:minor": "pnpm --filter @julio_ody/xray exec npm version minor -m \"release: %s\" && git push --follow-tags && pnpm -r publish",
+    "release:major": "pnpm --filter @julio_ody/xray exec npm version major -m \"release: %s\" && git push --follow-tags && pnpm -r publish",
     "xray": "pnpm --filter @julio_ody/xray run dev"
   },
   "engines": {
